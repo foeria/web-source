@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VisualSlot from "../components/common/VisualSlot.astro";
+import { siteConfig } from "../data/site";
+import { pageVisuals } from "../data/visuals";
+---
+
+<BaseLayout title={`404 | ${siteConfig.name}`} description="页面不存在。">
+  <section class="article-shell page-section">
+    <div class="card stack" style="padding:32px;text-align:center;">
+      <VisualSlot minHeight="280px" src={pageVisuals.notFound} alt="404 页面插画" />
+      <h1 class="section-title">这个页面不在这里</h1>
+      <p class="section-subtitle" style="margin-inline:auto;">
+        你访问的链接可能已经移动，或者对应资源尚未发布。可以返回首页继续浏览，也可以直接去资源总览页重新查找。
+      </p>
+      <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
+        <a class="button" href="/">返回首页</a>
+        <a class="button-secondary" href="/resources/">浏览资源</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

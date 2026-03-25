@@ -1,0 +1,146 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VisualSlot from "../components/common/VisualSlot.astro";
+import ResourceCard from "../components/ui/ResourceCard.astro";
+import { categories } from "../data/categories";
+import { getCategoryVisual, pageVisuals } from "../data/visuals";
+import { siteConfig } from "../data/site";
+import {
+  formatDate,
+  getAllAnnouncements,
+  getAllResources,
+  getFeaturedResources,
+  getCategoryMeta,
+} from "../lib/content";
+
+const featured = (await getFeaturedResources()).slice(0, 4);
+const resources = (await getAllResources()).slice(0, 3);
+const announcements = (await getAllAnnouncements()).slice(0, 2);
+---
+
+<BaseLayout title={`${siteConfig.name} | 首页`} description={siteConfig.description}>
+  <section class="container hero-grid">
+    <div class="hero-copy surface surface-strong fade-up stack">
+      <span class="eyebrow">Anime Resource Space</span>
+      <h1 class="section-title">{siteConfig.name}</h1>
+      <p class="section-subtitle">{siteConfig.tagline}</p>
+
+      <form action="/search/" method="get" class="stack" style="gap:14px;">
+        <input
+          class="search-input"
+          type="search"
+          name="q"
+          placeholder="搜索软件名、关键词、功能标签或资源类型"
+        />
+        <div class="hero-actions">
+          <button class="button" type="submit">开始搜索</button>
+          <a class="button-secondary" href="/resources/">浏览全部资源</a>
+        </div>
+      </form>
+
+      <div class="keyword-row">
+        {siteConfig.recommendedKeywords.map((keyword) => (
+          <a class="pill" href={`/search/?q=${encodeURIComponent(keyword)}`}>{keyword}</a>
+        ))}
+      </div>
+
+      <div class="pill">支持白天 / 黑夜主题切换，资源以静态方式长期维护与扩展。</div>
+    </div>
+
+    <div class="hero-side-stack">
+      <VisualSlot
+        minHeight="360px"
+        floating={true}
+        src="/assets/decor/hero-anime-girl.png"
+        alt="首页主视觉插画"
+      />
+      <div class="mini-visual-grid">
+        <VisualSlot minHeight="170px" compact={true} src="/assets/decor/forest-anime-portrait.png" alt="立绘装饰图一" />
+        <VisualSlot minHeight="170px" compact={true} src="/assets/decor/gaming-anime-girl.png" alt="立绘装饰图二" />
+        <VisualSlot minHeight="170px" compact={true} src="/assets/decor/falling-anime-girl.png" alt="立绘装饰图三" />
+      </div>
+    </div>
+  </section>
+
+  <section class="container page-section stack" id="categories">
+    <div>
+      <div class="eyebrow">Categories</div>
+      <h2 class="section-title">资源分类</h2>
+      <p class="section-subtitle">以目录导航为主，让软件、模板、教程和其他资源都能继续往下扩展。</p>
+    </div>
+    <div class="grid-3">
+      {categories.map((category) => (
+        <a class="card stack" href={`/category/${category.slug}/`} style="padding:22px;">
+          <VisualSlot minHeight="160px" src={getCategoryVisual(category.slug)} alt={`${category.name} 分类封面`} />
+          <div style="font-size:1.1rem;font-weight:700;">{category.name}</div>
+          <div style="color:var(--text-muted);line-height:1.8;">{category.description}</div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="container page-section stack">
+    <div>
+      <div class="eyebrow">Featured Picks</div>
+      <h2 class="section-title">精选资源</h2>
+    </div>
+    <div class="grid-4">
+      {featured.map((item) => (
+        <ResourceCard
+          href={`/resource/${item.slug}/`}
+          title={item.data.title}
+          summary={item.data.summary}
+          tags={item.data.tags}
+          updatedAt={item.data.updatedAt}
+          categoryLabel={getCategoryMeta(item.data.category)?.name}
+          platform={item.data.platform}
+          imageSrc={item.data.cover}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="container page-section stack">
+    <div>
+      <div class="eyebrow">Latest Updates</div>
+      <h2 class="section-title">最近更新</h2>
+    </div>
+    <div class="resource-list">
+      {resources.map((item) => (
+        <a class="card resource-row" href={`/resource/${item.slug}/`}>
+          <div class="image-slot image-slot--clean resource-row__media">
+            <img class="visual-slot__image" src={item.data.cover} alt={item.data.title} loading="lazy" />
+          </div>
+          <div class="stack">
+            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;">
+              <div style="font-size:1.1rem;font-weight:700;">{item.data.title}</div>
+              <div style="color:var(--text-muted);">{formatDate(item.data.updatedAt)}</div>
+            </div>
+            <div style="color:var(--text-muted);line-height:1.8;">{item.data.summary}</div>
+            <div class="meta-row">
+              {item.data.tags.map((tag) => (
+                <span>#{tag}</span>
+              ))}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="container page-section">
+    <div class="card" style="padding:24px;display:grid;gap:20px;grid-template-columns:1.3fr 0.7fr;">
+      <div class="stack">
+        <div class="eyebrow">Announcements</div>
+        <h2 class="section-title">站点公告</h2>
+        {announcements.map((item) => (
+          <a href={`/announcements/${item.slug}/`} class="stack" style="gap:8px;">
+            <strong>{item.data.title}</strong>
+            <span style="color:var(--text-muted);">{item.data.summary}</span>
+          </a>
+        ))}
+      </div>
+      <VisualSlot minHeight="240px" src={pageVisuals.homeAnnouncement} alt="公告区域插画" />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import VisualSlot from "../../components/common/VisualSlot.astro";
+import ResourceBrowser from "../../components/search/ResourceBrowser";
+import { categories } from "../../data/categories";
+import { siteConfig } from "../../data/site";
+import { pageVisuals } from "../../data/visuals";
+import { getAllResources, getTags } from "../../lib/content";
+
+const resources = await getAllResources();
+const tags = (await getTags()).slice(0, 10);
+const browserItems = resources.map((item) => ({
+  title: item.data.title,
+  slug: item.slug,
+  summary: item.data.summary,
+  category: item.data.category,
+  tags: item.data.tags,
+  platform: item.data.platform,
+  version: item.data.version,
+  updatedAt: new Intl.DateTimeFormat("zh-CN", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(item.data.updatedAt),
+  cover: item.data.cover,
+}));
+---
+
+<BaseLayout title={`资源总览 | ${siteConfig.name}`} description="按分类、平台、标签与关键词浏览全部资源。">
+  <section class="container page-section stack">
+    <div class="card stack" style="padding:24px;">
+      <div class="eyebrow">All Resources</div>
+      <h1 class="section-title">资源总览</h1>
+      <p class="section-subtitle">这里汇总全部资源，支持按关键词、分类、平台和标签进行前端筛选。</p>
+      <VisualSlot minHeight="220px" src={pageVisuals.resourcesHero} alt="资源总览主视觉" />
+      <div class="stack surface" style="padding:18px;">
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          {categories.map((category) => (
+            <a class="pill" href={`/category/${category.slug}/`}>{category.name}</a>
+          ))}
+        </div>
+        <div id="tags" style="display:flex;flex-wrap:wrap;gap:10px;">
+          {tags.map((tag) => (
+            <a class="pill" href={`/tag/${encodeURIComponent(tag)}/`}>#{tag}</a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <ResourceBrowser client:load items={browserItems} categories={categories} tags={tags} />
+  </section>
+</BaseLayout>

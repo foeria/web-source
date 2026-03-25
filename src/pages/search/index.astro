@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SearchExperience from "../../components/search/SearchExperience";
+import { siteConfig } from "../../data/site";
+import { getAllResources, getCategoryMeta } from "../../lib/content";
+
+const searchIndex = (await getAllResources()).map((item) => ({
+  title: item.data.title,
+  slug: item.slug,
+  summary: item.data.summary,
+  tags: item.data.tags,
+  category: getCategoryMeta(item.data.category)?.name ?? item.data.category,
+  platform: item.data.platform,
+  keywords: item.data.keywords,
+  aliases: item.data.aliases,
+  cover: item.data.cover,
+}));
+const initialQuery = Astro.url.searchParams.get("q") ?? "";
+---
+
+<BaseLayout title={`搜索 | ${siteConfig.name}`} description="按软件名、关键词和标签搜索资源。">
+  <section class="container page-section stack">
+    <SearchExperience client:load items={searchIndex} initialQuery={initialQuery} />
+  </section>
+</BaseLayout>

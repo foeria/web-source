@@ -1,0 +1,220 @@
+---
+import { render } from "astro:content";
+import VisualSlot from "../../components/common/VisualSlot.astro";
+import ResourceTabs from "../../components/resource/ResourceTabs";
+import ResourceCard from "../../components/ui/ResourceCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { siteConfig } from "../../data/site";
+import {
+  formatDate,
+  getAllResources,
+  getCategoryMeta,
+  getRelatedResources,
+} from "../../lib/content";
+
+export async function getStaticPaths() {
+  const resources = await getAllResources();
+  return resources.map((resource) => ({
+    params: { slug: resource.slug },
+    props: { resource },
+  }));
+}
+
+const { resource } = Astro.props;
+const { Content } = await render(resource);
+const resources = await getAllResources();
+const related = getRelatedResources(resource, resources);
+const category = getCategoryMeta(resource.data.category);
+const usageImages =
+  resource.data.gallery.length > 0 ? resource.data.gallery : [resource.data.cover];
+const usageSteps =
+  resource.data.usageSteps.length > 0
+    ? resource.data.usageSteps
+    : usageImages.map((image, index) => ({
+        title: `步骤 ${index + 1}`,
+        description:
+          "依次查看安装、授权、配置和统计等核心流程，快速完成软件上手。",
+        image,
+      }));
+---
+
+<BaseLayout title={`${resource.data.title} | ${siteConfig.name}`} description={resource.data.summary}>
+  <section class="container page-section stack">
+    <div class="meta-row">
+      <a class="pill" href="/">首页</a>
+      <a class="pill" href={`/category/${resource.data.category}/`}>
+        {category?.name ?? resource.data.category}
+      </a>
+      <span class="pill">{resource.data.title}</span>
+    </div>
+
+    <div class="download-grid">
+      <div class="card stack" style="padding:24px;">
+        <div class="eyebrow">Software Detail</div>
+        <h1 class="section-title">{resource.data.title}</h1>
+        <p class="section-subtitle" style="margin-top:0;">{resource.data.summary}</p>
+
+        <div class="meta-row">
+          <span class="pill">{category?.name}</span>
+          {resource.data.platform.map((item) => (
+            <span class="pill">{item}</span>
+          ))}
+          <span class="pill">版本 {resource.data.version}</span>
+          <span class="pill">{resource.data.fileFormat}</span>
+          <span class="pill">{resource.data.fileSize}</span>
+        </div>
+
+        <div style="color:var(--text-muted);">更新于 {formatDate(resource.data.updatedAt)}</div>
+
+        <VisualSlot
+          minHeight="360px"
+          src={resource.data.cover}
+          alt={`${resource.data.title} 封面图`}
+        />
+
+        <div class="prose">
+          <h2>软件介绍</h2>
+          <p>{resource.data.overview ?? resource.data.summary}</p>
+        </div>
+      </div>
+
+      <aside class="card sticky-panel" style="padding:24px;">
+        <div class="stack" style="gap:18px;">
+          <div class="eyebrow">Download & Contact</div>
+          <h2 style="margin:0;">下载与联系</h2>
+
+          <div class="stack surface" style="padding:18px;">
+            <div>
+              <strong>百度网盘</strong>
+              <div style="margin-top:8px;word-break:break-all;">
+                <a href={resource.data.baiduPanUrl} target="_blank" rel="noreferrer">
+                  {resource.data.baiduPanUrl}
+                </a>
+              </div>
+            </div>
+            <div>
+              <strong>提取码</strong>
+              <div style="margin-top:8px;">
+                <span class="pill">{resource.data.extractCode}</span>
+              </div>
+            </div>
+            <div style="color:var(--text-muted);line-height:1.8;">{resource.data.downloadNote}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;">
+              <a class="button" href={resource.data.baiduPanUrl} target="_blank" rel="noreferrer">
+                前往下载
+              </a>
+              <button class="button-secondary" type="button" data-copy-code={resource.data.extractCode}>
+                复制提取码
+              </button>
+            </div>
+          </div>
+
+          <div style="height:1px;background:var(--line);"></div>
+
+          <div class="stack surface" style="padding:18px;">
+            <strong style="font-size:1.05rem;">{siteConfig.profile.title}</strong>
+            <p style="margin:0;color:var(--text-muted);line-height:1.8;">
+              {siteConfig.profile.bio}
+            </p>
+          </div>
+
+          <div class="stack" style="gap:10px;">
+            <div>
+              <strong>承接方向</strong>
+              <p style="margin:8px 0 0;color:var(--text-muted);line-height:1.8;">
+                {siteConfig.profile.services}
+              </p>
+            </div>
+            {siteConfig.profile.socials.map((item) => (
+              <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;">
+                <span style="color:var(--text-muted);">{item.label}</span>
+                {item.href ? (
+                  <a href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer">
+                    {item.value}
+                  </a>
+                ) : (
+                  <strong>{item.value}</strong>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="stack">
+      <div>
+        <div class="eyebrow">Usage Guide</div>
+        <h2 class="section-title">软件使用方法</h2>
+        <p class="section-subtitle">
+          下方整理了这款软件的核心上手流程，方便你快速完成安装、配置与日常使用。
+        </p>
+      </div>
+
+      {resource.data.tutorial ? (
+        <article class="card prose" style="padding:24px;">
+          <p>{resource.data.tutorial}</p>
+        </article>
+      ) : null}
+
+      <div class="grid-3">
+        {usageSteps.map((step, index) => (
+          <div class="card stack usage-step-card" style="padding:18px;">
+            <VisualSlot
+              minHeight="220px"
+              src={step.image ?? usageImages[index] ?? resource.data.cover}
+              alt={`${resource.data.title} 使用流程图 ${index + 1}`}
+            />
+            <div class="eyebrow">Step {index + 1}</div>
+            <h3 style="margin:0;font-size:1.08rem;">{step.title}</h3>
+            <p style="margin:0;color:var(--text-muted);line-height:1.8;">
+              {step.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <ResourceTabs
+      client:load
+      overview={resource.data.overview}
+      tutorial={resource.data.tutorial}
+      changelog={resource.data.changelog}
+      notes={resource.data.notes}
+    />
+
+    <article class="card prose" style="padding:24px;">
+      <Content />
+    </article>
+
+    <div class="stack">
+      <div class="eyebrow">Related</div>
+      <h2 class="section-title">相关资源</h2>
+      <div class="grid-3">
+        {related.map((item) => (
+          <ResourceCard
+            href={`/resource/${item.slug}/`}
+            title={item.data.title}
+            summary={item.data.summary}
+            tags={item.data.tags}
+            updatedAt={item.data.updatedAt}
+            categoryLabel={getCategoryMeta(item.data.category)?.name}
+            platform={item.data.platform}
+            imageSrc={item.data.cover}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    document.querySelectorAll("[data-copy-code]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const value = button.getAttribute("data-copy-code");
+        if (!value) return;
+        await navigator.clipboard.writeText(value);
+        button.textContent = "已复制提取码";
+      });
+    });
+  </script>
+</BaseLayout>

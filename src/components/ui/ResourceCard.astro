@@ -1,0 +1,52 @@
+---
+import { getResourceVisual } from "../../data/visuals";
+import { formatDate } from "../../lib/content";
+
+type Props = {
+  href: string;
+  title: string;
+  summary: string;
+  tags: string[];
+  updatedAt: Date;
+  categoryLabel?: string;
+  platform?: string[];
+  large?: boolean;
+  imageSrc?: string;
+};
+
+const {
+  href,
+  title,
+  summary,
+  tags,
+  updatedAt,
+  categoryLabel,
+  platform = [],
+  large = false,
+  imageSrc,
+} = Astro.props;
+
+const finalImage = getResourceVisual(href, imageSrc);
+---
+
+<a class="card stack" href={href} style={`padding:${large ? "22px" : "18px"};`}>
+  <div class:list={["image-slot", "image-slot--clean"]} style={`min-height:${large ? "280px" : "200px"};`}>
+    <img class="visual-slot__image" src={finalImage} alt={title} loading="lazy" />
+  </div>
+  <div class="stack" style="gap:10px;">
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      {categoryLabel ? <span class="pill">{categoryLabel}</span> : null}
+      {platform.slice(0, 2).map((item) => (
+        <span class="pill">{item}</span>
+      ))}
+    </div>
+    <div style="font-size:1.1rem;font-weight:700;">{title}</div>
+    <div style="color:var(--text-muted);line-height:1.75;">{summary}</div>
+    <div class="meta-row">
+      {tags.slice(0, 3).map((tag) => (
+        <span>#{tag}</span>
+      ))}
+    </div>
+    <div style="color:var(--text-muted);font-size:0.92rem;">更新于 {formatDate(updatedAt)}</div>
+  </div>
+</a>

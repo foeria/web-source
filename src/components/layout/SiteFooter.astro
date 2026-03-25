@@ -1,0 +1,29 @@
+---
+import { siteConfig } from "../../data/site";
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <div class="site-footer__title">{siteConfig.name}</div>
+        <p class="site-footer__desc">{siteConfig.description}</p>
+      </div>
+
+      <nav class="site-footer__links" aria-label="Footer Navigation">
+        {siteConfig.footerLinks.map((item) => (
+          <a href={item.href}>{item.label}</a>
+        ))}
+      </nav>
+    </div>
+
+    <div class="site-footer__bottom">
+      <span>{siteConfig.serviceAdTitle}</span>
+      <strong>{siteConfig.serviceAdContact}</strong>
+    </div>
+
+    <div class="site-footer__notice">
+      {siteConfig.uniquePublishNote}
+    </div>
+  </div>
+</footer>

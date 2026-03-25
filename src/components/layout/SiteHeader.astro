@@ -1,0 +1,32 @@
+---
+import { siteConfig } from "../../data/site";
+import ThemeToggle from "../theme/ThemeToggle";
+---
+
+<header class="site-header surface">
+  <div class="site-header__inner">
+    <a href="/" style="display:flex; align-items:center; gap:0.85rem;">
+      <div
+        class="surface"
+        style="width:48px;height:48px;border-radius:18px;display:grid;place-items:center;font-size:1.15rem;font-weight:700;"
+      >
+        酒酒
+      </div>
+      <div>
+        <div style="font-size:1rem;font-weight:700;">{siteConfig.name}</div>
+        <div style="font-size:0.85rem;color:var(--text-muted);">静态资源展示空间</div>
+      </div>
+    </a>
+
+    <nav class="site-nav">
+      {siteConfig.nav.map((item) => (
+        <a class="pill" href={item.href}>{item.label}</a>
+      ))}
+    </nav>
+
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end;">
+      <a class="pill" href="/search/">搜索</a>
+      <ThemeToggle client:load />
+    </div>
+  </div>
+</header>

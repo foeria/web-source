@@ -1,0 +1,21 @@
+.prose {
+  color: var(--text);
+  line-height: 1.9;
+}
+
+.prose h2,
+.prose h3 {
+  margin-top: 2rem;
+  color: var(--text);
+}
+
+.prose p,
+.prose li {
+  color: var(--text-muted);
+}
+
+.prose code {
+  background: var(--badge);
+  padding: 0.18rem 0.4rem;
+  border-radius: 999px;
+}

@@ -1,0 +1,116 @@
+import Fuse from "fuse.js";
+import { useEffect, useMemo, useState } from "react";
+import { getDecorVisual } from "../../data/visuals";
+
+type SearchItem = {
+  title: string;
+  slug: string;
+  summary: string;
+  tags: string[];
+  category: string;
+  platform: string[];
+  keywords: string[];
+  aliases: string[];
+  cover?: string;
+};
+
+type Props = {
+  items: SearchItem[];
+  initialQuery?: string;
+};
+
+export default function SearchExperience({ items, initialQuery = "" }: Props) {
+  const [query, setQuery] = useState(initialQuery);
+
+  const fuse = useMemo(
+    () =>
+      new Fuse(items, {
+        threshold: 0.38,
+        includeScore: true,
+        keys: [
+          { name: "title", weight: 0.4 },
+          { name: "aliases", weight: 0.2 },
+          { name: "keywords", weight: 0.15 },
+          { name: "tags", weight: 0.15 },
+          { name: "summary", weight: 0.1 },
+        ],
+      }),
+    [items],
+  );
+
+  const results = useMemo(() => {
+    const trimmed = query.trim();
+    if (!trimmed) return [];
+    return fuse.search(trimmed).map((entry) => entry.item);
+  }, [fuse, query]);
+
+  useEffect(() => {
+    const trimmed = query.trim();
+    const url = trimmed ? `/search/?q=${encodeURIComponent(trimmed)}` : "/search/";
+    window.history.replaceState({}, "", url);
+  }, [query]);
+
+  return (
+    <div className="stack">
+      <div className="card stack" style={{ padding: "24px" }}>
+        <div className="eyebrow">Search</div>
+        <h1 className="section-title">搜索资源</h1>
+        <input
+          className="search-input"
+          type="search"
+          placeholder="输入软件名、关键词、标签或别名"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+        />
+      </div>
+
+      <div className="pill">
+        {query.trim() ? `已找到 ${results.length} 条结果` : "输入关键词后即可开始搜索"}
+      </div>
+
+      {query.trim() ? (
+        results.length ? (
+          <div className="resource-list">
+            {results.map((item) => (
+              <a key={item.slug} className="card resource-row" href={`/resource/${item.slug}/`}>
+                <div className="image-slot image-slot--clean resource-row__media">
+                  <img
+                    className="visual-slot__image"
+                    src={item.cover || getDecorVisual(item.slug)}
+                    alt={item.title}
+                    loading="lazy"
+                  />
+                </div>
+                <div className="stack">
+                  <div style={{ fontSize: "1.16rem", fontWeight: 700 }}>{item.title}</div>
+                  <div style={{ color: "var(--text-muted)", lineHeight: 1.8 }}>{item.summary}</div>
+                  <div className="meta-row">
+                    <span className="pill">{item.category}</span>
+                    {item.tags.slice(0, 3).map((tag) => (
+                      <span key={tag}>#{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <div className="card stack" style={{ padding: "24px" }}>
+            <div className="image-slot image-slot--clean" style={{ minHeight: "220px" }}>
+              <img
+                className="visual-slot__image"
+                src={getDecorVisual("search-empty")}
+                alt="搜索空状态插画"
+                loading="lazy"
+              />
+            </div>
+            <strong>没有找到匹配结果</strong>
+            <span style={{ color: "var(--text-muted)" }}>
+              试试更短的关键词，或者换用资源标签、软件别名再次搜索。
+            </span>
+          </div>
+        )
+      ) : null}
+    </div>
+  );
+}

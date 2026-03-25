@@ -1,0 +1,33 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import VisualSlot from "../../components/common/VisualSlot.astro";
+import { getAnnouncementVisual } from "../../data/visuals";
+import { formatDate, getAllAnnouncements } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const announcements = await getAllAnnouncements();
+  return announcements.map((announcement) => ({
+    params: { slug: announcement.slug },
+    props: { announcement },
+  }));
+}
+
+const { announcement } = Astro.props;
+const { Content } = await render(announcement);
+---
+
+<BaseLayout title={`${announcement.data.title} | 公告`} description={announcement.data.summary}>
+  <section class="article-shell page-section stack">
+    <div class="card stack" style="padding:28px;">
+      <div class="eyebrow">Announcement</div>
+      <h1 class="section-title">{announcement.data.title}</h1>
+      <div style="color:var(--text-muted);">{formatDate(announcement.data.publishedAt)}</div>
+      <VisualSlot minHeight="240px" src={getAnnouncementVisual(announcement.slug)} alt={announcement.data.title} />
+      <article class="prose">
+        <Content />
+      </article>
+      <a class="button-secondary" href="/announcements/">返回公告列表</a>
+    </div>
+  </section>
+</BaseLayout>

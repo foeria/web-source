@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import VisualSlot from "../../components/common/VisualSlot.astro";
+import { siteConfig } from "../../data/site";
+import ResourceCard from "../../components/ui/ResourceCard.astro";
+import { getTagVisual } from "../../data/visuals";
+import { getAllResources, getCategoryMeta, getTags } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const tags = await getTags();
+  return tags.map((tag) => ({ params: { slug: tag }, props: { tag } }));
+}
+
+const { tag } = Astro.props;
+const resources = (await getAllResources()).filter((item) =>
+  item.data.tags.includes(tag),
+);
+---
+
+<BaseLayout title={`标签：${tag} | ${siteConfig.name}`} description={`查看与 ${tag} 相关的资源。`}>
+  <section class="container page-section stack">
+    <div class="card stack" style="padding:24px;">
+      <div class="eyebrow">Tag</div>
+      <h1 class="section-title">标签：{tag}</h1>
+      <p class="section-subtitle">这里汇总所有与 {tag} 相关的资源，方便按主题继续向下查找。</p>
+      <VisualSlot minHeight="200px" src={getTagVisual(tag)} alt={`${tag} 标签插画`} />
+    </div>
+
+    <div class="grid-3">
+      {resources.map((item) => (
+        <ResourceCard
+          href={`/resource/${item.slug}/`}
+          title={item.data.title}
+          summary={item.data.summary}
+          tags={item.data.tags}
+          updatedAt={item.data.updatedAt}
+          categoryLabel={getCategoryMeta(item.data.category)?.name}
+          platform={item.data.platform}
+          imageSrc={item.data.cover}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

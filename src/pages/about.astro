@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VisualSlot from "../components/common/VisualSlot.astro";
+import { siteConfig } from "../data/site";
+---
+
+<BaseLayout title={`关于 | ${siteConfig.name}`} description="关于这个静态资源站的定位、维护方式与资源范围。">
+  <section class="container page-section">
+    <div class="card" style="padding:24px;display:grid;grid-template-columns:0.8fr 1.2fr;gap:24px;">
+      <VisualSlot minHeight="380px" floating={true} src="/assets/decor/forest-anime-portrait.png" alt="关于页角色插画" />
+      <div class="stack">
+        <div class="eyebrow">About</div>
+        <h1 class="section-title">关于这个站点</h1>
+        <p class="section-subtitle">
+          {siteConfig.name} 是一个以静态部署为核心的个人资源站，用来长期整理我的独立软件作品、开发资料、模板素材和常用工具。
+        </p>
+        <div class="prose">
+          <h2>资源收录方向</h2>
+          <p>站内会优先展示我独立开发的软件，其次再补充开发资源、效率工具、模板素材以及后续持续整理的其他内容。</p>
+          <h2>维护方式</h2>
+          <p>整站基于静态站点构建，资源信息通过内容文件维护，适合在 GitHub Pages 这类环境中长期托管与更新。</p>
+          <h2>分享形式</h2>
+          <p>下载方式以百度网盘为主，页面主要承担展示、分类、搜索和说明作用，不引入传统后台与数据库。</p>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;">
+          <a class="button" href="/resources/">浏览资源</a>
+          <a class="button-secondary" href={`mailto:${siteConfig.contactEmail}`}>联系我</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

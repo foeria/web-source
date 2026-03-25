@@ -1,0 +1,10 @@
+:root {
+  --radius-xs: 10px;
+  --radius-sm: 14px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --shadow-soft: 0 20px 60px rgba(32, 24, 68, 0.12);
+  --shadow-glow: 0 24px 80px rgba(114, 123, 255, 0.24);
+  --max-width: 1200px;
+  --header-height: 84px;
+}

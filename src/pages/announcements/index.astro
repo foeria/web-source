@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import VisualSlot from "../../components/common/VisualSlot.astro";
+import { siteConfig } from "../../data/site";
+import { pageVisuals } from "../../data/visuals";
+import { formatDate, getAllAnnouncements } from "../../lib/content";
+
+const announcements = await getAllAnnouncements();
+---
+
+<BaseLayout title={`公告 | ${siteConfig.name}`} description="查看站点公告、更新记录与说明。">
+  <section class="container page-section stack">
+    <div class="card stack" style="padding:24px;">
+      <div class="eyebrow">Announcements</div>
+      <h1 class="section-title">公告</h1>
+      <p class="section-subtitle">集中展示站点更新、维护说明和资源目录调整信息。</p>
+      <VisualSlot minHeight="220px" src={pageVisuals.announcementsHero} alt="公告页插画" />
+    </div>
+
+    <div class="resource-list">
+      {announcements.map((item) => (
+        <a class="card stack" href={`/announcements/${item.slug}/`} style="padding:22px;">
+          <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;">
+            <strong style="font-size:1.1rem;">{item.data.title}</strong>
+            <span style="color:var(--text-muted);">{formatDate(item.data.publishedAt)}</span>
+          </div>
+          <div style="color:var(--text-muted);line-height:1.8;">{item.data.summary}</div>
+          {item.data.pinned ? <span class="pill">置顶公告</span> : null}
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

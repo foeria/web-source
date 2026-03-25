@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteConfig } from "../data/site";
+---
+
+<BaseLayout title={`免责声明 | ${siteConfig.name}`} description="关于资源来源、链接有效性与使用范围的说明。">
+  <section class="article-shell page-section">
+    <article class="card prose" style="padding:28px;">
+      <div class="eyebrow">Disclaimer</div>
+      <h1 class="section-title">免责声明</h1>
+      <p>本站主要用于整理和展示个人资源信息，页面中的介绍、截图与说明仅用于分享和归档用途。</p>
+      <h2>关于下载链接</h2>
+      <p>部分资源通过百度网盘链接提供，若因链接失效、平台策略或资源调整导致无法访问，请以最新页面说明为准。</p>
+      <h2>关于资源内容</h2>
+      <p>除特别说明外，本站不承诺第三方资源的长期可用性，也不对外部链接内容的准确性与完整性作额外保证。</p>
+    </article>
+  </section>
+</BaseLayout>
