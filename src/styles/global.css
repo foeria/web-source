@@ -292,6 +292,30 @@ img {
   display: block;
 }
 
+.visual-slot__link {
+  position: absolute;
+  inset: 0;
+  display: block;
+  z-index: 0;
+}
+
+.visual-slot__button {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+  z-index: 0;
+}
+
+.visual-slot--linked {
+  cursor: zoom-in;
+}
+
 .visual-slot__inner {
   position: relative;
   z-index: 1;
@@ -566,6 +590,109 @@ img {
   gap: 20px;
 }
 
+.resource-detail-layout {
+  align-items: start;
+}
+
+.resource-detail-card,
+.resource-download-panel,
+.resource-tutorial-card,
+.resource-content-card {
+  padding: 24px;
+}
+
+.resource-detail-summary {
+  max-width: 60ch;
+}
+
+.resource-download-stack {
+  gap: 18px;
+}
+
+.resource-download-box,
+.resource-profile-box,
+.resource-step-card {
+  padding: 18px;
+}
+
+.resource-download-panel a,
+.resource-download-panel strong,
+.resource-download-panel p {
+  overflow-wrap: anywhere;
+}
+
+.resource-download-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.resource-download-actions > * {
+  flex: 1 1 180px;
+  min-width: 0;
+}
+
+.resource-contact-list {
+  gap: 10px;
+}
+
+.resource-contact-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.resource-contact-row > * {
+  min-width: 0;
+}
+
+.resource-contact-row a,
+.resource-contact-row strong {
+  max-width: 100%;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.resource-tabs__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.2rem;
+}
+
+.resource-tabs__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  background: var(--badge);
+  border: 1px solid var(--line);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.resource-tabs__trigger[data-state="active"] {
+  border-color: rgba(124, 157, 255, 0.4);
+  box-shadow: var(--shadow-glow);
+}
+
+.resource-tabs__panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 1.25rem;
+  color: var(--text-muted);
+  line-height: 1.9;
+}
+
 .download-grid {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
@@ -580,6 +707,60 @@ img {
 
 .sticky-panel {
   align-self: start;
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+}
+
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(12, 16, 32, 0.78);
+  backdrop-filter: blur(10px);
+  cursor: zoom-out;
+}
+
+.lightbox__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 32px, 1180px);
+  max-height: calc(100vh - 48px);
+  margin: 24px auto;
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(12, 18, 34, 0.82);
+  box-shadow: var(--shadow-glow);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.lightbox__image {
+  display: block;
+  width: 100%;
+  max-height: calc(100vh - 88px);
+  object-fit: contain;
+  border-radius: calc(var(--radius-md) + 2px);
 }
 
 .article-shell {
@@ -620,5 +801,109 @@ img {
       center,
       center,
       center;
+  }
+}
+
+@media (max-width: 720px) {
+  .container {
+    width: min(100% - 24px, var(--max-width));
+  }
+
+  .page-section {
+    padding: 20px 0;
+  }
+
+  .resource-detail-layout,
+  .grid-3 {
+    gap: 16px;
+  }
+
+  .resource-detail-card,
+  .resource-download-panel,
+  .resource-tutorial-card,
+  .resource-content-card {
+    padding: 20px;
+  }
+
+  .resource-download-box,
+  .resource-profile-box,
+  .resource-step-card {
+    padding: 16px;
+  }
+
+  .resource-download-actions > * {
+    flex-basis: 100%;
+  }
+
+  .resource-tabs__list {
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .resource-tabs__trigger {
+    flex: 1 1 calc(50% - 0.25rem);
+    padding: 0.75rem 0.9rem;
+  }
+
+  .resource-tabs__panel {
+    border-radius: 20px;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .container {
+    width: min(100% - 20px, var(--max-width));
+  }
+
+  .site-header__inner {
+    gap: 16px;
+    padding: 14px 0;
+  }
+
+  .site-nav {
+    gap: 10px;
+  }
+
+  .pill {
+    padding: 0.45rem 0.75rem;
+  }
+
+  .resource-detail-card,
+  .resource-download-panel,
+  .resource-tutorial-card,
+  .resource-content-card {
+    padding: 16px;
+  }
+
+  .resource-download-box,
+  .resource-profile-box,
+  .resource-step-card {
+    padding: 14px;
+  }
+
+  .resource-contact-row {
+    flex-direction: column;
+  }
+
+  .resource-contact-row a,
+  .resource-contact-row strong {
+    text-align: left;
+  }
+
+  .resource-tabs__trigger {
+    flex-basis: 100%;
+    width: 100%;
+  }
+
+  .lightbox__dialog {
+    width: min(100% - 20px, 1180px);
+    max-height: calc(100vh - 32px);
+    margin: 16px auto;
+    padding: 12px;
+  }
+
+  .lightbox__image {
+    max-height: calc(100vh - 72px);
   }
 }

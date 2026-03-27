@@ -1,14 +1,15 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import VisualSlot from "../../components/common/VisualSlot.astro";
 import ResourceCard from "../../components/ui/ResourceCard.astro";
 import { categories } from "../../data/categories";
 import { siteConfig } from "../../data/site";
-import { getCategoryVisual } from "../../data/visuals";
 import { getAllResources } from "../../lib/content";
 
 export async function getStaticPaths() {
-  return categories.map((category) => ({ params: { slug: category.slug }, props: { category } }));
+  return categories.map((category) => ({
+    params: { slug: category.slug },
+    props: { category },
+  }));
 }
 
 const { category } = Astro.props;
@@ -23,7 +24,6 @@ const resources = (await getAllResources()).filter(
       <div class="eyebrow">Category</div>
       <h1 class="section-title">{category.name}</h1>
       <p class="section-subtitle">{category.description}</p>
-      <VisualSlot minHeight="220px" src={getCategoryVisual(category.slug)} alt={`${category.name} 分类插画`} />
     </div>
 
     <div class="grid-3">

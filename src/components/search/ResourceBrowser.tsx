@@ -69,7 +69,7 @@ export default function ResourceBrowser({ items, categories, tags }: Props) {
             type="search"
             value={keyword}
             onChange={(event) => setKeyword(event.target.value)}
-            placeholder="搜索标题、分类、标签或平台"
+            placeholder="搜索标题、标签或平台"
           />
 
           <select
@@ -129,7 +129,7 @@ export default function ResourceBrowser({ items, categories, tags }: Props) {
         </div>
       </div>
 
-      <div className="pill">当前筛选结果共 {filtered.length} 项资源</div>
+      <div className="pill">当前共筛选到 {filtered.length} 条资源</div>
 
       <div className="resource-list">
         {filtered.length ? (
@@ -163,7 +163,7 @@ export default function ResourceBrowser({ items, categories, tags }: Props) {
                   ))}
                 </div>
                 <div style={{ color: "var(--text-muted)", fontSize: "0.92rem" }}>
-                  更新于 {item.updatedAt}
+                  更新时间：{item.updatedAt}
                 </div>
               </div>
             </a>
@@ -180,7 +180,7 @@ export default function ResourceBrowser({ items, categories, tags }: Props) {
             </div>
             <strong>没有找到符合条件的资源</strong>
             <span style={{ color: "var(--text-muted)" }}>
-              可以试着减少关键词，或者切换分类、平台与标签组合重新筛选。
+              可以尝试缩短关键词，或者清空筛选条件后重新查看。
             </span>
           </div>
         )}

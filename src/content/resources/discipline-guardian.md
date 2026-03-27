@@ -39,22 +39,22 @@ notes: "首次使用建议优先完成权限授权与监控规则配置，这样
 usageSteps:
   - title: "打开网盘并下载 APK"
     description: "进入百度网盘链接后输入提取码 1283，找到“自律守护者”安装包并开始下载。"
-    image: "/assets/resources/focus-timer/1.jpg"
+    image: "/assets/resources/discipline-guardian/steps/step-1-download.png"
   - title: "允许安装未知来源应用"
     description: "如果系统拦截安装，请在手机设置中允许当前浏览器或文件管理器安装未知来源应用。"
-    image: "/assets/resources/focus-timer/2.jpg"
+    image: "/assets/resources/discipline-guardian/steps/step-2-install-source.png"
   - title: "完成应用安装"
     description: "返回安装界面继续安装，安装完成后打开“自律守护者”，进入首次引导流程。"
-    image: "/assets/resources/focus-timer/3.jpg"
+    image: "/assets/resources/discipline-guardian/steps/step-3-install-app.png"
   - title: "授予必要权限"
     description: "按引导页提示完成使用访问、无障碍等关键权限授权，这是监控和锁定功能正常工作的前提。"
-    image: "/assets/resources/focus-timer/1.jpg"
+    image: "/assets/resources/discipline-guardian/steps/step-4-grant-permissions.png"
   - title: "配置解锁与监控规则"
     description: "进入设置页，优先配置解锁方式、监控时段、通知提醒和白名单，让限制逻辑更符合你的日常使用习惯。"
-    image: "/assets/resources/focus-timer/2.jpg"
+    image: "/assets/resources/discipline-guardian/steps/step-5-config-rules.png"
   - title: "添加目标应用并查看统计"
     description: "在应用页添加需要限制的目标应用并设置每日时长，随后回到首页和统计页查看今日概览、周数据与月度变化。"
-    image: "/assets/resources/focus-timer/3.jpg"
+    image: "/assets/resources/discipline-guardian/steps/step-6-view-stats.png"
 ---
 ## 软件亮点
 

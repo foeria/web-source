@@ -1,5 +1,6 @@
 import Fuse from "fuse.js";
 import { useEffect, useMemo, useState } from "react";
+import type { FormEvent } from "react";
 import { getDecorVisual } from "../../data/visuals";
 
 type SearchItem = {
@@ -21,12 +22,16 @@ type Props = {
 
 export default function SearchExperience({ items, initialQuery = "" }: Props) {
   const [query, setQuery] = useState(initialQuery);
+  const [submittedQuery, setSubmittedQuery] = useState(initialQuery.trim());
+  const [ready, setReady] = useState(false);
 
   const fuse = useMemo(
     () =>
       new Fuse(items, {
         threshold: 0.38,
         includeScore: true,
+        ignoreLocation: true,
+        minMatchCharLength: 1,
         keys: [
           { name: "title", weight: 0.4 },
           { name: "aliases", weight: 0.2 },
@@ -39,36 +44,69 @@ export default function SearchExperience({ items, initialQuery = "" }: Props) {
   );
 
   const results = useMemo(() => {
-    const trimmed = query.trim();
+    const trimmed = submittedQuery.trim();
     if (!trimmed) return [];
     return fuse.search(trimmed).map((entry) => entry.item);
-  }, [fuse, query]);
+  }, [fuse, submittedQuery]);
 
   useEffect(() => {
-    const trimmed = query.trim();
+    const params = new URLSearchParams(window.location.search);
+    const urlQuery = params.get("q") ?? initialQuery;
+    setQuery(urlQuery);
+    setSubmittedQuery(urlQuery.trim());
+    setReady(true);
+  }, [initialQuery]);
+
+  function commitQuery(nextQuery: string) {
+    const trimmed = nextQuery.trim();
+    setSubmittedQuery(trimmed);
     const url = trimmed ? `/search/?q=${encodeURIComponent(trimmed)}` : "/search/";
     window.history.replaceState({}, "", url);
-  }, [query]);
+  }
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!ready) return;
+    commitQuery(query);
+  }
 
   return (
     <div className="stack">
       <div className="card stack" style={{ padding: "24px" }}>
         <div className="eyebrow">Search</div>
         <h1 className="section-title">搜索资源</h1>
-        <input
-          className="search-input"
-          type="search"
-          placeholder="输入软件名、关键词、标签或别名"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-        />
+        <form className="stack" style={{ gap: "14px" }} onSubmit={handleSubmit}>
+          <input
+            className="search-input"
+            type="search"
+            name="q"
+            placeholder="输入软件名、关键词、标签或别名"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+          />
+          <div className="hero-actions">
+            <button className="button" type="submit">
+              搜索
+            </button>
+            <button
+              className="button-secondary"
+              type="button"
+              onClick={() => {
+                setQuery("");
+                commitQuery("");
+              }}
+            >
+              清空
+            </button>
+          </div>
+        </form>
       </div>
 
       <div className="pill">
-        {query.trim() ? `已找到 ${results.length} 条结果` : "输入关键词后即可开始搜索"}
+        {submittedQuery ? `已找到 ${results.length} 条结果` : "输入关键词后按回车或点击按钮开始搜索"}
       </div>
 
-      {query.trim() ? (
+      {submittedQuery ? (
         results.length ? (
           <div className="resource-list">
             {results.map((item) => (

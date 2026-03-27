@@ -1,6 +1,7 @@
 .prose {
   color: var(--text);
   line-height: 1.9;
+  overflow-wrap: anywhere;
 }
 
 .prose h2,
@@ -12,6 +13,18 @@
 .prose p,
 .prose li {
   color: var(--text-muted);
+}
+
+.prose a,
+.prose li,
+.prose p {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
 }
 
 .prose code {

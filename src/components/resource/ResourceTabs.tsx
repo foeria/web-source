@@ -1,36 +1,10 @@
 import * as Tabs from "@radix-ui/react-tabs";
-import type { CSSProperties } from "react";
 
 type Props = {
   overview?: string;
   tutorial?: string;
   changelog?: string;
   notes?: string;
-};
-
-const tabListStyle: CSSProperties = {
-  display: "flex",
-  flexWrap: "wrap",
-  gap: "0.75rem",
-  marginBottom: "1.2rem",
-};
-
-const tabStyle: CSSProperties = {
-  background: "var(--badge)",
-  border: "1px solid var(--line)",
-  color: "var(--text)",
-  borderRadius: 999,
-  padding: "0.65rem 1rem",
-  cursor: "pointer",
-};
-
-const panelStyle: CSSProperties = {
-  background: "var(--panel)",
-  border: "1px solid var(--line)",
-  borderRadius: "24px",
-  padding: "1.25rem",
-  color: "var(--text-muted)",
-  lineHeight: 1.9,
 };
 
 export default function ResourceTabs({
@@ -49,16 +23,16 @@ export default function ResourceTabs({
   if (sections.length === 0) return null;
 
   return (
-    <Tabs.Root defaultValue={sections[0]?.value}>
-      <Tabs.List style={tabListStyle}>
+    <Tabs.Root className="resource-tabs" defaultValue={sections[0]?.value}>
+      <Tabs.List className="resource-tabs__list">
         {sections.map((section) => (
-          <Tabs.Trigger key={section.value} value={section.value} style={tabStyle}>
+          <Tabs.Trigger className="resource-tabs__trigger" key={section.value} value={section.value}>
             {section.label}
           </Tabs.Trigger>
         ))}
       </Tabs.List>
       {sections.map((section) => (
-        <Tabs.Content key={section.value} value={section.value} style={panelStyle}>
+        <Tabs.Content className="resource-tabs__panel" key={section.value} value={section.value}>
           {section.content}
         </Tabs.Content>
       ))}
