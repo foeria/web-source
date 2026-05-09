@@ -29,7 +29,7 @@ const {
 const finalImage = getResourceVisual(href, imageSrc);
 ---
 
-<a class="card stack" href={href} style={`padding:${large ? "22px" : "18px"};`}>
+<a class="card stack" href={href} style={`padding:${large ? "24px" : "20px"};`}>
   <div class:list={["image-slot", "image-slot--clean"]} style={`min-height:${large ? "280px" : "200px"};`}>
     <img class="visual-slot__image" src={finalImage} alt={title} loading="lazy" />
   </div>
@@ -40,13 +40,13 @@ const finalImage = getResourceVisual(href, imageSrc);
         <span class="pill">{item}</span>
       ))}
     </div>
-    <div style="font-size:1.1rem;font-weight:700;">{title}</div>
-    <div style="color:var(--text-muted);line-height:1.75;">{summary}</div>
+    <div style="font-family:'DM Serif Display','Noto Serif SC',Georgia,serif;font-size:1.1rem;font-weight:400;">{title}</div>
+    <div style="color:var(--text-muted);line-height:1.7;font-size:0.92rem;">{summary}</div>
     <div class="meta-row">
       {tags.slice(0, 3).map((tag) => (
         <span>#{tag}</span>
       ))}
     </div>
-    <div style="color:var(--text-muted);font-size:0.92rem;">更新于 {formatDate(updatedAt)}</div>
+    <div style="color:var(--text-muted);font-size:0.82rem;letter-spacing:0.03em;">更新于 {formatDate(updatedAt)}</div>
   </div>
 </a>

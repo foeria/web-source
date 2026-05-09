@@ -23,7 +23,7 @@ const { Content } = await render(announcement);
       <div class="eyebrow">Announcement</div>
       <h1 class="section-title">{announcement.data.title}</h1>
       <div style="color:var(--text-muted);">{formatDate(announcement.data.publishedAt)}</div>
-      <VisualSlot minHeight="240px" src={getAnnouncementVisual(announcement.slug)} alt={announcement.data.title} />
+      <VisualSlot aspectRatio="16/9" src={getAnnouncementVisual(announcement.slug)} alt={announcement.data.title} />
       <article class="prose">
         <Content />
       </article>

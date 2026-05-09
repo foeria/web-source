@@ -120,7 +120,7 @@ export default function SearchExperience({ items, initialQuery = "" }: Props) {
                   />
                 </div>
                 <div className="stack">
-                  <div style={{ fontSize: "1.16rem", fontWeight: 700 }}>{item.title}</div>
+                  <div style={{ fontFamily: "'DM Serif Display', 'Noto Serif SC', Georgia, serif", fontSize: "1.1rem", fontWeight: 400 }}>{item.title}</div>
                   <div style={{ color: "var(--text-muted)", lineHeight: 1.8 }}>{item.summary}</div>
                   <div className="meta-row">
                     <span className="pill">{item.category}</span>

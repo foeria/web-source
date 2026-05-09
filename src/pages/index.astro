@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import VisualSlot from "../components/common/VisualSlot.astro";
 import ResourceCard from "../components/ui/ResourceCard.astro";
 import { categories } from "../data/categories";
-import { getCategoryVisual, pageVisuals } from "../data/visuals";
+import { getCategoryVisual } from "../data/visuals";
 import { siteConfig } from "../data/site";
 import {
   formatDate,
@@ -15,50 +15,78 @@ import {
 
 const featured = (await getFeaturedResources()).slice(0, 4);
 const resources = (await getAllResources()).slice(0, 3);
-const announcements = (await getAllAnnouncements()).slice(0, 2);
+const announcements = (await getAllAnnouncements()).slice(0, 4);
+const allResources = await getAllResources();
 ---
 
 <BaseLayout title={`${siteConfig.name} | 首页`} description={siteConfig.description}>
-  <section class="container hero-grid">
-    <div class="hero-copy surface surface-strong fade-up stack">
-      <span class="eyebrow">Anime Resource Space</span>
-      <h1 class="section-title">{siteConfig.name}</h1>
-      <p class="section-subtitle">{siteConfig.tagline}</p>
+  <section class="container page-section">
+    <div class="hero-grid">
+      <div class="hero-copy surface surface-strong fade-up stack">
+        <span class="eyebrow">Resource Space</span>
+        <h1 class="section-title">{siteConfig.name}</h1>
+        <p class="section-subtitle">{siteConfig.tagline}</p>
 
-      <form action="/search/" method="get" class="stack" style="gap:14px;">
-        <input
-          class="search-input"
-          type="search"
-          name="q"
-          placeholder="搜索软件名、关键词、功能标签或资源类型"
-        />
-        <div class="hero-actions">
-          <button class="button" type="submit">开始搜索</button>
-          <a class="button-secondary" href="/resources/">浏览全部资源</a>
+        <form action="/search/" method="get" class="stack" style="gap:14px;">
+          <input
+            class="search-input"
+            type="search"
+            name="q"
+            placeholder="搜索软件名、关键词、功能标签或资源类型"
+          />
+          <div class="hero-actions">
+            <button class="button" type="submit">开始搜索</button>
+            <a class="button-secondary" href="/resources/">浏览全部资源</a>
+          </div>
+        </form>
+
+        <div class="keyword-row">
+          {siteConfig.recommendedKeywords.map((keyword) => (
+            <a class="pill" href={`/search/?q=${encodeURIComponent(keyword)}`}>{keyword}</a>
+          ))}
         </div>
-      </form>
 
-      <div class="keyword-row">
-        {siteConfig.recommendedKeywords.map((keyword) => (
-          <a class="pill" href={`/search/?q=${encodeURIComponent(keyword)}`}>{keyword}</a>
-        ))}
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat__value">{allResources.length}</span>
+            <span class="hero-stat__label">收录资源</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat__value">{categories.length}</span>
+            <span class="hero-stat__label">资源分类</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat__value">静态</span>
+            <span class="hero-stat__label">长期维护</span>
+          </div>
+        </div>
       </div>
 
-      <div class="pill">支持白天 / 黑夜主题切换，资源以静态方式长期维护与扩展。</div>
-    </div>
-
-    <div class="hero-side-stack">
-      <VisualSlot
-        minHeight="360px"
-        floating={true}
-        src="/assets/decor/hero-anime-girl.png"
-        alt="首页主视觉插画"
-      />
-      <div class="mini-visual-grid">
-        <VisualSlot minHeight="170px" compact={true} src="/assets/decor/forest-anime-portrait.png" alt="立绘装饰图一" />
-        <VisualSlot minHeight="170px" compact={true} src="/assets/decor/gaming-anime-girl.png" alt="立绘装饰图二" />
-        <VisualSlot minHeight="170px" compact={true} src="/assets/decor/falling-anime-girl.png" alt="立绘装饰图三" />
-      </div>
+      <aside class="hero-announce surface fade-up" style="animation-delay:80ms;">
+        <div class="hero-announce__header">
+          <div class="eyebrow">Announcements</div>
+          <h2 class="hero-announce__title">站点公告</h2>
+        </div>
+        <div class="hero-announce__list">
+          {announcements.map((item, index) => (
+            <a href={`/announcements/${item.slug}/`} class="hero-announce__item">
+              <div class="hero-announce__index">{String(index + 1).padStart(2, "0")}</div>
+              <div class="hero-announce__body">
+                <div class="hero-announce__meta">
+                  <span class="hero-announce__date">{formatDate(item.data.publishedAt)}</span>
+                  {item.data.pinned ? <span class="pill" style="font-size:0.7rem;">置顶</span> : null}
+                </div>
+                <div class="hero-announce__item-title">{item.data.title}</div>
+                <div class="hero-announce__summary">{item.data.summary}</div>
+              </div>
+            </a>
+          ))}
+        </div>
+        <a class="hero-announce__more" href="/announcements/">
+          查看全部公告
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      </aside>
     </div>
   </section>
 
@@ -125,22 +153,6 @@ const announcements = (await getAllAnnouncements()).slice(0, 2);
           </div>
         </a>
       ))}
-    </div>
-  </section>
-
-  <section class="container page-section">
-    <div class="card" style="padding:24px;display:grid;gap:20px;grid-template-columns:1.3fr 0.7fr;">
-      <div class="stack">
-        <div class="eyebrow">Announcements</div>
-        <h2 class="section-title">站点公告</h2>
-        {announcements.map((item) => (
-          <a href={`/announcements/${item.slug}/`} class="stack" style="gap:8px;">
-            <strong>{item.data.title}</strong>
-            <span style="color:var(--text-muted);">{item.data.summary}</span>
-          </a>
-        ))}
-      </div>
-      <VisualSlot minHeight="240px" src={pageVisuals.homeAnnouncement} alt="公告区域插画" />
     </div>
   </section>
 </BaseLayout>

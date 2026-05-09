@@ -3,18 +3,18 @@ import { siteConfig } from "../../data/site";
 import ThemeToggle from "../theme/ThemeToggle";
 ---
 
-<header class="site-header surface">
+<header class="site-header">
   <div class="site-header__inner">
-    <a href="/" style="display:flex; align-items:center; gap:0.85rem;">
+    <a href="/" style="display:flex; align-items:center; gap:0.75rem;">
       <div
         class="surface"
-        style="width:48px;height:48px;border-radius:18px;display:grid;place-items:center;font-size:1.15rem;font-weight:700;"
+        style="width:42px;height:42px;display:grid;place-items:center;font-size:1rem;font-weight:600;font-family:'Noto Serif SC',Georgia,serif;"
       >
         酒酒
       </div>
       <div>
-        <div style="font-size:1rem;font-weight:700;">{siteConfig.name}</div>
-        <div style="font-size:0.85rem;color:var(--text-muted);">静态整理，持续分享</div>
+        <div style="font-family:'DM Serif Display','Noto Serif SC',Georgia,serif;font-size:1.05rem;font-weight:400;letter-spacing:-0.01em;">{siteConfig.name}</div>
+        <div style="font-size:0.78rem;color:var(--text-muted);letter-spacing:0.04em;">静态整理，持续分享</div>
       </div>
     </a>
 
@@ -24,8 +24,22 @@ import ThemeToggle from "../theme/ThemeToggle";
       ))}
     </nav>
 
-    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end;">
-      <a class="pill" href="/search/">搜索</a>
+    <div class="site-header__actions">
+      <form action="/search/" method="get" class="header-search">
+        <input
+          class="header-search__input"
+          type="search"
+          name="q"
+          placeholder="搜索资源"
+          aria-label="搜索资源"
+        />
+        <button class="header-search__btn" type="submit" aria-label="搜索">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </form>
       <ThemeToggle client:load />
     </div>
   </div>

@@ -1,17 +1,19 @@
 const decorPool = [
-  "/assets/decor/hero-anime-girl.png",
-  "/assets/decor/forest-anime-portrait.png",
-  "/assets/decor/gaming-anime-girl.png",
-  "/assets/decor/falling-anime-girl.png",
+  "/assets/decor/插画1.png",
+  "/assets/decor/插画2.png",
+  "/assets/decor/插画3.png",
+  "/assets/decor/插画4.png",
+  "/assets/decor/插画5.png",
+  "/assets/decor/插画6.png",
 ];
 
 const categoryVisualMap: Record<string, string> = {
-  "indie-software": "/assets/decor/hero-anime-girl.png",
-  "dev-resources": "/assets/decor/gaming-anime-girl.png",
-  productivity: "/assets/decor/forest-anime-portrait.png",
-  templates: "/assets/decor/falling-anime-girl.png",
-  guides: "/assets/decor/forest-anime-portrait.png",
-  others: "/assets/decor/gaming-anime-girl.png",
+  "indie-software": "/assets/decor/插画1.png",
+  "dev-resources": "/assets/decor/插画2.png",
+  productivity: "/assets/decor/插画3.png",
+  templates: "/assets/decor/插画4.png",
+  guides: "/assets/decor/插画5.png",
+  others: "/assets/decor/插画6.png",
 };
 
 function hashValue(input: string) {
@@ -43,9 +45,9 @@ export function getResourceVisual(slug: string, cover?: string) {
 }
 
 export const pageVisuals = {
-  resourcesHero: "/assets/decor/hero-anime-girl.png",
-  announcementsHero: "/assets/decor/falling-anime-girl.png",
-  notFound: "/assets/decor/forest-anime-portrait.png",
-  emptyState: "/assets/decor/gaming-anime-girl.png",
-  homeAnnouncement: "/assets/decor/falling-anime-girl.png",
+  resourcesHero: "/assets/decor/插画1.png",
+  announcementsHero: "/assets/decor/插画2.png",
+  notFound: "/assets/decor/插画3.png",
+  emptyState: "/assets/decor/插画4.png",
+  homeAnnouncement: "/assets/decor/插画5.png",
 };

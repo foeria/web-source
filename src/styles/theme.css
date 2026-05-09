@@ -1,49 +1,49 @@
 :root {
   color-scheme: light;
-  --bg: #f7f3ff;
-  --bg-soft: #fff9fd;
-  --panel: rgba(255, 255, 255, 0.68);
-  --panel-strong: rgba(255, 255, 255, 0.92);
-  --text: #261d40;
-  --text-muted: #72678f;
-  --line: rgba(126, 111, 174, 0.18);
-  --accent: #ff69b8;
-  --accent-soft: #ffd6ec;
-  --accent-2: #7c9dff;
-  --accent-3: #7ce7ff;
-  --badge: rgba(255, 105, 184, 0.14);
+  --bg: #faf8f5;
+  --bg-soft: #f5f2ed;
+  --panel: rgba(255, 255, 255, 0.82);
+  --panel-strong: rgba(255, 255, 255, 0.96);
+  --text: #1a1a1a;
+  --text-muted: #6b6560;
+  --line: rgba(26, 26, 26, 0.1);
+  --accent: #c0542e;
+  --accent-soft: rgba(192, 84, 46, 0.08);
+  --accent-2: #2e5c8a;
+  --accent-3: #4a7a6b;
+  --badge: rgba(192, 84, 46, 0.06);
   --hero-gradient:
-    radial-gradient(circle at 15% 20%, rgba(255, 133, 193, 0.28), transparent 28%),
-    radial-gradient(circle at 82% 18%, rgba(124, 157, 255, 0.26), transparent 25%),
-    linear-gradient(180deg, #fff7fd 0%, #f2efff 48%, #eef7ff 100%);
+    radial-gradient(circle at 15% 20%, rgba(192, 84, 46, 0.06), transparent 28%),
+    radial-gradient(circle at 82% 18%, rgba(46, 92, 138, 0.05), transparent 25%),
+    linear-gradient(180deg, #faf8f5 0%, #f5f2ed 48%, #f0ede8 100%);
   --site-bg-overlay:
-    linear-gradient(180deg, rgba(247, 243, 255, 0.24) 0%, rgba(242, 239, 255, 0.18) 46%, rgba(238, 247, 255, 0.5) 100%);
+    linear-gradient(180deg, rgba(250, 248, 245, 0.3) 0%, rgba(245, 242, 237, 0.2) 46%, rgba(240, 237, 232, 0.5) 100%);
   --site-bg-image-main: url("/assets/decor/site-background.jpg");
   --image-slot:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(252, 232, 255, 0.95));
+    linear-gradient(135deg, rgba(245, 242, 237, 0.9), rgba(240, 237, 232, 0.95));
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0d1023;
-  --bg-soft: #141931;
-  --panel: rgba(19, 25, 50, 0.72);
-  --panel-strong: rgba(22, 28, 56, 0.92);
-  --text: #f8f3ff;
-  --text-muted: #b5a9d7;
-  --line: rgba(164, 153, 218, 0.18);
-  --accent: #ff85cc;
-  --accent-soft: rgba(255, 133, 204, 0.16);
-  --accent-2: #8bb8ff;
-  --accent-3: #7cdfff;
-  --badge: rgba(139, 184, 255, 0.14);
+  --bg: #111110;
+  --bg-soft: #1a1918;
+  --panel: rgba(26, 25, 24, 0.82);
+  --panel-strong: rgba(30, 29, 27, 0.96);
+  --text: #e8e4df;
+  --text-muted: #9a948d;
+  --line: rgba(232, 228, 223, 0.1);
+  --accent: #d4764e;
+  --accent-soft: rgba(212, 118, 78, 0.12);
+  --accent-2: #6a9ec8;
+  --accent-3: #7ab4a0;
+  --badge: rgba(212, 118, 78, 0.08);
   --hero-gradient:
-    radial-gradient(circle at 18% 20%, rgba(255, 133, 204, 0.18), transparent 25%),
-    radial-gradient(circle at 82% 18%, rgba(120, 163, 255, 0.22), transparent 28%),
-    linear-gradient(180deg, #0f1329 0%, #11172f 48%, #0f2036 100%);
+    radial-gradient(circle at 18% 20%, rgba(212, 118, 78, 0.06), transparent 25%),
+    radial-gradient(circle at 82% 18%, rgba(106, 158, 200, 0.08), transparent 28%),
+    linear-gradient(180deg, #111110 0%, #161514 48%, #1a1918 100%);
   --site-bg-overlay:
-    linear-gradient(180deg, rgba(8, 12, 28, 0.52) 0%, rgba(10, 18, 38, 0.4) 44%, rgba(9, 24, 46, 0.72) 100%);
+    linear-gradient(180deg, rgba(17, 17, 16, 0.5) 0%, rgba(22, 21, 20, 0.4) 44%, rgba(26, 25, 24, 0.7) 100%);
   --site-bg-image-main: url("/assets/decor/site-background.jpg");
   --image-slot:
-    linear-gradient(135deg, rgba(33, 39, 73, 0.9), rgba(22, 28, 56, 0.96));
+    linear-gradient(135deg, rgba(30, 29, 27, 0.95), rgba(26, 25, 24, 0.98));
 }

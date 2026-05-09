@@ -25,11 +25,18 @@ export default function ThemeToggle() {
       style={{
         display: "inline-flex",
         alignItems: "center",
-        gap: "0.75rem",
+        gap: "0.65rem",
         color: "var(--text)",
       }}
     >
-      <span style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
+      <span
+        style={{
+          fontSize: "0.78rem",
+          color: "var(--text-muted)",
+          letterSpacing: "0.06em",
+          textTransform: "uppercase",
+        }}
+      >
         {dark ? "夜间" : "白天"}
       </span>
       <Switch.Root
@@ -39,28 +46,27 @@ export default function ThemeToggle() {
           applyTheme(checked ? "dark" : "light");
         }}
         style={{
-          width: 58,
-          height: 34,
-          borderRadius: 999,
-          padding: 4,
+          width: 48,
+          height: 26,
+          padding: 3,
           display: "inline-flex",
           alignItems: "center",
-          background:
-            "linear-gradient(135deg, var(--accent), var(--accent-2))",
-          border: "1px solid rgba(255,255,255,0.2)",
+          background: dark
+            ? "var(--accent)"
+            : "var(--line)",
+          border: "1px solid var(--line)",
           cursor: "pointer",
-          boxShadow: "var(--shadow-glow)",
+          transition: "background 180ms ease",
         }}
       >
         <Switch.Thumb
           style={{
-            width: 24,
-            height: 24,
-            borderRadius: 999,
-            background: "white",
+            width: 18,
+            height: 18,
+            background: dark ? "white" : "var(--accent)",
             display: "block",
-            transition: "transform 180ms ease",
-            transform: dark ? "translateX(24px)" : "translateX(0)",
+            transition: "transform 180ms ease, background 180ms ease",
+            transform: dark ? "translateX(22px)" : "translateX(0)",
           }}
         />
       </Switch.Root>

@@ -155,7 +155,7 @@ export default function ResourceBrowser({ items, categories, tags }: Props) {
                   ))}
                   <span className="pill">版本 {item.version}</span>
                 </div>
-                <div style={{ fontSize: "1.16rem", fontWeight: 700 }}>{item.title}</div>
+                <div style={{ fontFamily: "'DM Serif Display', 'Noto Serif SC', Georgia, serif", fontSize: "1.1rem", fontWeight: 400 }}>{item.title}</div>
                 <div style={{ color: "var(--text-muted)", lineHeight: 1.8 }}>{item.summary}</div>
                 <div className="meta-row">
                   {item.tags.map((tag) => (
