@@ -5,6 +5,7 @@ import ResourceBrowser from "../../components/search/ResourceBrowser";
 import { categories } from "../../data/categories";
 import { siteConfig } from "../../data/site";
 import { pageVisuals } from "../../data/visuals";
+import { withBase } from "../../lib/site";
 import { getAllResources, getTags } from "../../lib/content";
 
 const resources = await getAllResources();
@@ -36,12 +37,12 @@ const browserItems = resources.map((item) => ({
       <div class="stack surface" style="padding:18px;">
         <div style="display:flex;flex-wrap:wrap;gap:10px;">
           {categories.map((category) => (
-            <a class="pill" href={`/category/${category.slug}/`}>{category.name}</a>
+            <a class="pill" href={withBase(`/category/${category.slug}/`)}>{category.name}</a>
           ))}
         </div>
         <div id="tags" style="display:flex;flex-wrap:wrap;gap:10px;">
           {tags.map((tag) => (
-            <a class="pill" href={`/tag/${encodeURIComponent(tag)}/`}>#{tag}</a>
+            <a class="pill" href={withBase(`/tag/${encodeURIComponent(tag)}/`)}>#{tag}</a>
           ))}
         </div>
       </div>

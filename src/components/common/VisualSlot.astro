@@ -1,4 +1,6 @@
 ---
+import { withBase } from "../../lib/site";
+
 type Props = {
   title?: string;
   subtitle?: string;
@@ -33,6 +35,8 @@ const slotStyle = aspectRatio
 
 const isLinked = Boolean(src && href);
 const isLightbox = Boolean(src && lightbox);
+const resolvedSrc = src ? withBase(src) : undefined;
+const resolvedHref = href ? withBase(href) : undefined;
 ---
 
 <div
@@ -49,18 +53,18 @@ const isLightbox = Boolean(src && lightbox);
     <button
       class="visual-slot__button"
       type="button"
-      data-lightbox-src={src}
+      data-lightbox-src={resolvedSrc}
       data-lightbox-alt={alt}
       aria-label={`查看大图：${alt}`}
     >
-      <img class="visual-slot__image" src={src} alt={alt} loading="lazy" />
+      <img class="visual-slot__image" src={resolvedSrc} alt={alt} loading="lazy" />
     </button>
-  ) : src && href ? (
-    <a class="visual-slot__link" href={href} target="_blank" rel="noreferrer" aria-label={`查看原图：${alt}`}>
-      <img class="visual-slot__image" src={src} alt={alt} loading="lazy" />
+  ) : src && resolvedHref ? (
+    <a class="visual-slot__link" href={resolvedHref} target="_blank" rel="noreferrer" aria-label={`查看原图：${alt}`}>
+      <img class="visual-slot__image" src={resolvedSrc} alt={alt} loading="lazy" />
     </a>
   ) : src ? (
-    <img class="visual-slot__image" src={src} alt={alt} loading="lazy" />
+    <img class="visual-slot__image" src={resolvedSrc} alt={alt} loading="lazy" />
   ) : null}
   {showText ? (
     <div class="visual-slot__inner">

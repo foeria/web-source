@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import VisualSlot from "../../components/common/VisualSlot.astro";
 import { siteConfig } from "../../data/site";
 import { pageVisuals } from "../../data/visuals";
+import { withBase } from "../../lib/site";
 import { formatDate, getAllAnnouncements } from "../../lib/content";
 
 const announcements = await getAllAnnouncements();
@@ -19,7 +20,7 @@ const announcements = await getAllAnnouncements();
 
     <div class="resource-list">
       {announcements.map((item) => (
-        <a class="card stack" href={`/announcements/${item.slug}/`} style="padding:22px;">
+        <a class="card stack" href={withBase(`/announcements/${item.slug}/`)} style="padding:22px;">
           <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;">
             <strong style="font-size:1.1rem;">{item.data.title}</strong>
             <span style="color:var(--text-muted);">{formatDate(item.data.publishedAt)}</span>

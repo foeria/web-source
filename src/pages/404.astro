@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import VisualSlot from "../components/common/VisualSlot.astro";
 import { siteConfig } from "../data/site";
 import { pageVisuals } from "../data/visuals";
+import { withBase } from "../lib/site";
 ---
 
 <BaseLayout title={`404 | ${siteConfig.name}`} description="页面不存在。">
@@ -14,8 +15,8 @@ import { pageVisuals } from "../data/visuals";
         你访问的链接可能已经移动，或者对应资源尚未发布。可以返回首页继续浏览，也可以直接去资源总览页重新查找。
       </p>
       <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
-        <a class="button" href="/">返回首页</a>
-        <a class="button-secondary" href="/resources/">浏览资源</a>
+        <a class="button" href={withBase("/")}>返回首页</a>
+        <a class="button-secondary" href={withBase("/resources/")}>浏览资源</a>
       </div>
     </div>
   </section>

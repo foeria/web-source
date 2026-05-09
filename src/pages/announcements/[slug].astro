@@ -3,6 +3,7 @@ import { render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import VisualSlot from "../../components/common/VisualSlot.astro";
 import { getAnnouncementVisual } from "../../data/visuals";
+import { withBase } from "../../lib/site";
 import { formatDate, getAllAnnouncements } from "../../lib/content";
 
 export async function getStaticPaths() {
@@ -27,7 +28,7 @@ const { Content } = await render(announcement);
       <article class="prose">
         <Content />
       </article>
-      <a class="button-secondary" href="/announcements/">返回公告列表</a>
+      <a class="button-secondary" href={withBase("/announcements/")}>返回公告列表</a>
     </div>
   </section>
 </BaseLayout>

@@ -5,6 +5,7 @@ import ResourceCard from "../components/ui/ResourceCard.astro";
 import { categories } from "../data/categories";
 import { getCategoryVisual } from "../data/visuals";
 import { siteConfig } from "../data/site";
+import { withBase } from "../lib/site";
 import {
   formatDate,
   getAllAnnouncements,
@@ -27,7 +28,7 @@ const allResources = await getAllResources();
         <h1 class="section-title">{siteConfig.name}</h1>
         <p class="section-subtitle">{siteConfig.tagline}</p>
 
-        <form action="/search/" method="get" class="stack" style="gap:14px;">
+        <form action={withBase("/search/")} method="get" class="stack" style="gap:14px;">
           <input
             class="search-input"
             type="search"
@@ -36,13 +37,13 @@ const allResources = await getAllResources();
           />
           <div class="hero-actions">
             <button class="button" type="submit">开始搜索</button>
-            <a class="button-secondary" href="/resources/">浏览全部资源</a>
+            <a class="button-secondary" href={withBase("/resources/")}>浏览全部资源</a>
           </div>
         </form>
 
         <div class="keyword-row">
           {siteConfig.recommendedKeywords.map((keyword) => (
-            <a class="pill" href={`/search/?q=${encodeURIComponent(keyword)}`}>{keyword}</a>
+            <a class="pill" href={withBase(`/search/?q=${encodeURIComponent(keyword)}`)}>{keyword}</a>
           ))}
         </div>
 
@@ -69,7 +70,7 @@ const allResources = await getAllResources();
         </div>
         <div class="hero-announce__list">
           {announcements.map((item, index) => (
-            <a href={`/announcements/${item.slug}/`} class="hero-announce__item">
+            <a href={withBase(`/announcements/${item.slug}/`)} class="hero-announce__item">
               <div class="hero-announce__index">{String(index + 1).padStart(2, "0")}</div>
               <div class="hero-announce__body">
                 <div class="hero-announce__meta">
@@ -82,7 +83,7 @@ const allResources = await getAllResources();
             </a>
           ))}
         </div>
-        <a class="hero-announce__more" href="/announcements/">
+        <a class="hero-announce__more" href={withBase("/announcements/")}>
           查看全部公告
           <span aria-hidden="true">&rarr;</span>
         </a>
@@ -98,7 +99,7 @@ const allResources = await getAllResources();
     </div>
     <div class="grid-3">
       {categories.map((category) => (
-        <a class="card stack" href={`/category/${category.slug}/`} style="padding:22px;">
+        <a class="card stack" href={withBase(`/category/${category.slug}/`)} style="padding:22px;">
           <VisualSlot minHeight="160px" src={getCategoryVisual(category.slug)} alt={`${category.name} 分类封面`} />
           <div style="font-size:1.1rem;font-weight:700;">{category.name}</div>
           <div style="color:var(--text-muted);line-height:1.8;">{category.description}</div>
@@ -115,7 +116,7 @@ const allResources = await getAllResources();
     <div class="grid-4">
       {featured.map((item) => (
         <ResourceCard
-          href={`/resource/${item.slug}/`}
+          href={withBase(`/resource/${item.slug}/`)}
           title={item.data.title}
           summary={item.data.summary}
           tags={item.data.tags}
@@ -135,9 +136,9 @@ const allResources = await getAllResources();
     </div>
     <div class="resource-list">
       {resources.map((item) => (
-        <a class="card resource-row" href={`/resource/${item.slug}/`}>
+        <a class="card resource-row" href={withBase(`/resource/${item.slug}/`)}>
           <div class="image-slot image-slot--clean resource-row__media">
-            <img class="visual-slot__image" src={item.data.cover} alt={item.data.title} loading="lazy" />
+            <img class="visual-slot__image" src={withBase(item.data.cover)} alt={item.data.title} loading="lazy" />
           </div>
           <div class="stack">
             <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;">

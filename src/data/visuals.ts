@@ -1,19 +1,21 @@
+import { withBase } from "../lib/site";
+
 const decorPool = [
-  "/assets/decor/插画1.png",
-  "/assets/decor/插画2.png",
-  "/assets/decor/插画3.png",
-  "/assets/decor/插画4.png",
-  "/assets/decor/插画5.png",
-  "/assets/decor/插画6.png",
+  withBase("/assets/decor/插画1.png"),
+  withBase("/assets/decor/插画2.png"),
+  withBase("/assets/decor/插画3.png"),
+  withBase("/assets/decor/插画4.png"),
+  withBase("/assets/decor/插画5.png"),
+  withBase("/assets/decor/插画6.png"),
 ];
 
 const categoryVisualMap: Record<string, string> = {
-  "indie-software": "/assets/decor/插画1.png",
-  "dev-resources": "/assets/decor/插画2.png",
-  productivity: "/assets/decor/插画3.png",
-  templates: "/assets/decor/插画4.png",
-  guides: "/assets/decor/插画5.png",
-  others: "/assets/decor/插画6.png",
+  "indie-software": withBase("/assets/decor/插画1.png"),
+  "dev-resources": withBase("/assets/decor/插画2.png"),
+  productivity: withBase("/assets/decor/插画3.png"),
+  templates: withBase("/assets/decor/插画4.png"),
+  guides: withBase("/assets/decor/插画5.png"),
+  others: withBase("/assets/decor/插画6.png"),
 };
 
 function hashValue(input: string) {
@@ -41,13 +43,13 @@ export function getAnnouncementVisual(seed: number | string = 0) {
 }
 
 export function getResourceVisual(slug: string, cover?: string) {
-  return cover ?? getDecorVisual(slug);
+  return cover ? withBase(cover) : getDecorVisual(slug);
 }
 
 export const pageVisuals = {
-  resourcesHero: "/assets/decor/插画1.png",
-  announcementsHero: "/assets/decor/插画2.png",
-  notFound: "/assets/decor/插画3.png",
-  emptyState: "/assets/decor/插画4.png",
-  homeAnnouncement: "/assets/decor/插画5.png",
+  resourcesHero: withBase("/assets/decor/插画1.png"),
+  announcementsHero: withBase("/assets/decor/插画2.png"),
+  notFound: withBase("/assets/decor/插画3.png"),
+  emptyState: withBase("/assets/decor/插画4.png"),
+  homeAnnouncement: withBase("/assets/decor/插画5.png"),
 };

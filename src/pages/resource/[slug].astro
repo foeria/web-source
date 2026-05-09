@@ -5,6 +5,7 @@ import ResourceTabs from "../../components/resource/ResourceTabs";
 import ResourceCard from "../../components/ui/ResourceCard.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { siteConfig } from "../../data/site";
+import { withBase } from "../../lib/site";
 import {
   formatDate,
   getAllResources,
@@ -41,8 +42,8 @@ const usageSteps =
 <BaseLayout title={`${resource.data.title} | ${siteConfig.name}`} description={resource.data.summary}>
   <section class="container page-section stack">
     <div class="meta-row">
-      <a class="pill" href="/">首页</a>
-      <a class="pill" href={`/category/${resource.data.category}/`}>
+      <a class="pill" href={withBase("/")}>首页</a>
+      <a class="pill" href={withBase(`/category/${resource.data.category}/`)}>
         {category?.name ?? resource.data.category}
       </a>
       <span class="pill">{resource.data.title}</span>
@@ -195,7 +196,7 @@ const usageSteps =
       <div class="grid-3">
         {related.map((item) => (
           <ResourceCard
-            href={`/resource/${item.slug}/`}
+            href={withBase(`/resource/${item.slug}/`)}
             title={item.data.title}
             summary={item.data.summary}
             tags={item.data.tags}

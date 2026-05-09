@@ -1,6 +1,7 @@
 ---
 import { getResourceVisual } from "../../data/visuals";
 import { formatDate } from "../../lib/content";
+import { withBase } from "../../lib/site";
 
 type Props = {
   href: string;
@@ -27,9 +28,10 @@ const {
 } = Astro.props;
 
 const finalImage = getResourceVisual(href, imageSrc);
+const finalHref = withBase(href);
 ---
 
-<a class="card stack" href={href} style={`padding:${large ? "24px" : "20px"};`}>
+<a class="card stack" href={finalHref} style={`padding:${large ? "24px" : "20px"};`}>
   <div class:list={["image-slot", "image-slot--clean"]} style={`min-height:${large ? "280px" : "200px"};`}>
     <img class="visual-slot__image" src={finalImage} alt={title} loading="lazy" />
   </div>

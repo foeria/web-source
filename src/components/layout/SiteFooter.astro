@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from "../../data/site";
+import { withBase } from "../../lib/site";
 ---
 
 <footer class="site-footer">
@@ -12,7 +13,7 @@ import { siteConfig } from "../../data/site";
 
       <nav class="site-footer__links" aria-label="Footer Navigation">
         {siteConfig.footerLinks.map((item) => (
-          <a href={item.href}>{item.label}</a>
+          <a href={withBase(item.href)}>{item.label}</a>
         ))}
       </nav>
     </div>

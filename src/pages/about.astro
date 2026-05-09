@@ -2,12 +2,13 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import VisualSlot from "../components/common/VisualSlot.astro";
 import { siteConfig } from "../data/site";
+import { withBase } from "../lib/site";
 ---
 
 <BaseLayout title={`关于 | ${siteConfig.name}`} description="关于这个静态资源站的定位、维护方式与资源范围。">
   <section class="container page-section">
     <div class="card" style="padding:24px;display:grid;grid-template-columns:0.8fr 1.2fr;gap:24px;">
-      <VisualSlot minHeight="380px" floating={true} src="/assets/decor/forest-anime-portrait.png" alt="关于页角色插画" />
+      <VisualSlot minHeight="380px" floating={true} src={withBase("/assets/decor/forest-anime-portrait.png")} alt="关于页角色插画" />
       <div class="stack">
         <div class="eyebrow">About</div>
         <h1 class="section-title">关于这个站点</h1>
@@ -23,7 +24,7 @@ import { siteConfig } from "../data/site";
           <p>下载方式以百度网盘为主，页面主要承担展示、分类、搜索和说明作用，不引入传统后台与数据库。</p>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:12px;">
-          <a class="button" href="/resources/">浏览资源</a>
+          <a class="button" href={withBase("/resources/")}>浏览资源</a>
           <a class="button-secondary" href={`mailto:${siteConfig.contactEmail}`}>联系我</a>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { getDecorVisual } from "../../data/visuals";
+import { withBase } from "../../lib/site";
 
 type ResourceItem = {
   title: string;
@@ -134,11 +135,11 @@ export default function ResourceBrowser({ items, categories, tags }: Props) {
       <div className="resource-list">
         {filtered.length ? (
           filtered.map((item) => (
-            <a key={item.slug} className="card resource-row" href={`/resource/${item.slug}/`}>
+            <a key={item.slug} className="card resource-row" href={withBase(`/resource/${item.slug}/`)}>
               <div className="image-slot image-slot--clean resource-row__media">
                 <img
                   className="visual-slot__image"
-                  src={item.cover || getDecorVisual(item.slug)}
+                  src={withBase(item.cover || getDecorVisual(item.slug))}
                   alt={item.title}
                   loading="lazy"
                 />

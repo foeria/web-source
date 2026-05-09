@@ -2,6 +2,7 @@ import Fuse from "fuse.js";
 import { useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { getDecorVisual } from "../../data/visuals";
+import { withBase } from "../../lib/site";
 
 type SearchItem = {
   title: string;
@@ -60,7 +61,7 @@ export default function SearchExperience({ items, initialQuery = "" }: Props) {
   function commitQuery(nextQuery: string) {
     const trimmed = nextQuery.trim();
     setSubmittedQuery(trimmed);
-    const url = trimmed ? `/search/?q=${encodeURIComponent(trimmed)}` : "/search/";
+    const url = trimmed ? withBase(`/search/?q=${encodeURIComponent(trimmed)}`) : withBase("/search/");
     window.history.replaceState({}, "", url);
   }
 
@@ -110,14 +111,14 @@ export default function SearchExperience({ items, initialQuery = "" }: Props) {
         results.length ? (
           <div className="resource-list">
             {results.map((item) => (
-              <a key={item.slug} className="card resource-row" href={`/resource/${item.slug}/`}>
-                <div className="image-slot image-slot--clean resource-row__media">
-                  <img
-                    className="visual-slot__image"
-                    src={item.cover || getDecorVisual(item.slug)}
-                    alt={item.title}
-                    loading="lazy"
-                  />
+                <a key={item.slug} className="card resource-row" href={withBase(`/resource/${item.slug}/`)}>
+                  <div className="image-slot image-slot--clean resource-row__media">
+                    <img
+                      className="visual-slot__image"
+                      src={withBase(item.cover || getDecorVisual(item.slug))}
+                      alt={item.title}
+                      loading="lazy"
+                    />
                 </div>
                 <div className="stack">
                   <div style={{ fontFamily: "'DM Serif Display', 'Noto Serif SC', Georgia, serif", fontSize: "1.1rem", fontWeight: 400 }}>{item.title}</div>

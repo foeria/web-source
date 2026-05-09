@@ -1,6 +1,7 @@
 ---
 import SiteHeader from "../components/layout/SiteHeader.astro";
 import SiteFooter from "../components/layout/SiteFooter.astro";
+import { withBase } from "../lib/site";
 import "../styles/global.css";
 
 type Props = {
@@ -12,7 +13,11 @@ const { title, description = "酒酒的奇妙空间" } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="zh-CN" data-theme="light">
+<html
+  lang="zh-CN"
+  data-theme="light"
+  style={`--site-bg-image-main: url("${withBase("/assets/decor/site-background.jpg")}")`}
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
