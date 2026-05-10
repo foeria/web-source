@@ -18,7 +18,7 @@
     linear-gradient(180deg, #faf8f5 0%, #f5f2ed 48%, #f0ede8 100%);
   --site-bg-overlay:
     linear-gradient(180deg, rgba(250, 248, 245, 0.3) 0%, rgba(245, 242, 237, 0.2) 46%, rgba(240, 237, 232, 0.5) 100%);
-  --site-bg-image-main: url("/assets/decor/site-background.jpg");
+  --site-bg-image-main: url("/assets/decor/site-background-20260510.jpg");
   --image-slot:
     linear-gradient(135deg, rgba(245, 242, 237, 0.9), rgba(240, 237, 232, 0.95));
 }
@@ -43,7 +43,7 @@
     linear-gradient(180deg, #111110 0%, #161514 48%, #1a1918 100%);
   --site-bg-overlay:
     linear-gradient(180deg, rgba(17, 17, 16, 0.5) 0%, rgba(22, 21, 20, 0.4) 44%, rgba(26, 25, 24, 0.7) 100%);
-  --site-bg-image-main: url("/assets/decor/site-background.jpg");
+  --site-bg-image-main: url("/assets/decor/site-background-20260510.jpg");
   --image-slot:
     linear-gradient(135deg, rgba(30, 29, 27, 0.95), rgba(26, 25, 24, 0.98));
 }

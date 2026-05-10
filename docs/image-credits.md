@@ -2,14 +2,14 @@
 
 本站当前使用的插画与封面图片分为两类：
 
-- `public/assets/decor/site-background.jpg`
+- `public/assets/decor/site-background-20260510.jpg`
   由你本地提供，用作全站海天背景图。
 - 其余二次元插画与资源封面
   主要来自 `Pixabay` 上可复用的插画页面，并已下载到项目内使用。
 
 ## 背景图
 
-- `public/assets/decor/site-background.jpg`
+- `public/assets/decor/site-background-20260510.jpg`
   本地提供，未使用外部下载链接。
 
 ## 站点装饰图
