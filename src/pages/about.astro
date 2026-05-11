@@ -1,14 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import VisualSlot from "../components/common/VisualSlot.astro";
 import { siteConfig } from "../data/site";
 import { withBase } from "../lib/site";
 ---
 
 <BaseLayout title={`关于 | ${siteConfig.name}`} description="关于这个静态资源站的定位、维护方式与资源范围。">
   <section class="container page-section">
-    <div class="card" style="padding:24px;display:grid;grid-template-columns:0.8fr 1.2fr;gap:24px;">
-      <VisualSlot minHeight="380px" floating={true} src={withBase("/assets/decor/forest-anime-portrait.png")} alt="关于页角色插画" />
+    <div class="card" style="padding:24px;display:grid;grid-template-columns:1fr;gap:24px;max-width:760px;margin:0 auto;">
       <div class="stack">
         <div class="eyebrow">About</div>
         <h1 class="section-title">关于这个站点</h1>

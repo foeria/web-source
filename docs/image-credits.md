@@ -33,3 +33,7 @@
   https://pixabay.com/illustrations/anime-technology-wire-techno-8301494/
 - `public/assets/resources/astro-static-guide/cover.jpg`
   https://pixabay.com/illustrations/lofi-anime-city-lights-sunset-calm-9950447/
+- `public/assets/resources/smart-writing-assistant/cover.png`
+  `public/assets/resources/smart-writing-assistant/workspace-loaded.png`
+  `public/assets/resources/smart-writing-assistant/workspace.png`
+  本地提供，来自“智能写作助手”文件夹中的界面截图，用作独立软件卡片封面与详情页展示。
